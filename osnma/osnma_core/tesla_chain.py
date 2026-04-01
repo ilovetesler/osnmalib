@@ -169,10 +169,10 @@ class TESLAChain:
         else:
             tags_log = self.tags_structure.load_mack_message(mack_object)
             if tesla_key := mack_object.get_key():
-                StatusLogger.log_auth_tesla_key(tesla_key)
                 verified, is_new_key = self.add_key(tesla_key)
                 if verified and is_new_key:
                     self.tags_structure.update_tag_lists()
+                StatusLogger.log_auth_tesla_key(tesla_key)
             if do_log:
                 StatusLogger.log_mack_data(prn_a, tags_log, tesla_key)
             return tesla_key
