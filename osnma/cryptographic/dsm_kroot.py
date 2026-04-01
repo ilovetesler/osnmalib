@@ -78,14 +78,13 @@ class DSMKroot(DSM):
         return correct_padding == self.get_value('P_DK')
 
     def _digital_signature_verification(self, kroot_m):
-
-        verification_result = None
         try:
-            verification_result = self.public_key.verify(self.get_value("DS").tobytes(), kroot_m.tobytes())
+            return self.public_key.verify(
+                self.get_value("DS").tobytes(),
+                kroot_m.tobytes()
+            )
         except ecdsa.BadSignatureError:
-            verification_result = False
-        finally:
-            return verification_result
+            return False
 
     def set_pkr_dict(self, pkr_dict):
         self.pkr_dict = pkr_dict
